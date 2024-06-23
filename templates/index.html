@@ -1,0 +1,44 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPIO Control</title>
+    <style>
+        .button {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            font-size: 20px;
+        }
+        .button:active {
+            background-color: lightgreen;
+        }
+    </style>
+    <script>
+        function toggle(pin, action) {
+            fetch(`/${action}/${pin}`, { method: 'POST' })
+                .then(response => {
+                    if (!response.ok) {
+                        alert("Falha na comunicação com o servidor!");
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Controle de GPIO</h1>
+    <div>
+        <button class="button" style="position: absolute; left: 50%; transform: translateX(-50%);" 
+                onmousedown="toggle(17, 'on')" onmouseup="toggle(17, 'off')">↑</button>
+        <button class="button" style="position: absolute; left: 20%; transform: translateX(-50%);" 
+                onmousedown="toggle(27, 'on')" onmouseup="toggle(27, 'off')">←</button>
+        <button class="button" style="position: absolute; left: 80%; transform: translateX(-50%);" 
+                onmousedown="toggle(22, 'on')" onmouseup="toggle(22, 'off')">→</button>
+        <button class="button" style="position: absolute; left: 50%; top: 150px; transform: translateX(-50%);" 
+                onmousedown="toggle(18, 'on')" onmouseup="toggle(18, 'off')">↓</button>
+    </div>
+</body>
+</html>
